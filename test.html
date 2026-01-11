@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Máy Test Độ Sĩ</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+*{box-sizing:border-box;font-family:Arial}
+body{
+ margin:0;height:100vh;display:flex;align-items:center;justify-content:center;
+ background:radial-gradient(circle,#111,#000);color:#fff;overflow:hidden;
+}
+.box{
+ width:350px;background:#0b0b0b;border:2px solid #ff004c;
+ border-radius:18px;padding:22px;text-align:center;
+ box-shadow:0 0 30px #ff004c;
+}
+h2{margin:0 0 6px;color:#ff4d7a}
+.sub{font-size:14px;opacity:.8}
+input{
+ width:100%;padding:10px;margin:10px 0;
+ border-radius:12px;border:none;outline:none;
+ text-align:center;font-size:16px;
+}
+.meter{
+ width:100%;height:26px;background:#222;border-radius:20px;
+ overflow:hidden;margin:16px 0;
+}
+.bar{
+ height:100%;width:0%;
+ background:linear-gradient(90deg,#ff004c,#ff8aa5);
+ transition:width .08s;
+}
+button{
+ padding:12px 22px;border:none;border-radius:25px;
+ background:#ff004c;color:#000;font-size:16px;cursor:pointer;
+}
+#result{margin-top:14px;font-size:18px;min-height:42px}
+.shake{animation:shake .15s infinite}
+@keyframes shake{
+ 0%{transform:translateX(0)}
+ 25%{transform:translateX(-2px)}
+ 50%{transform:translateX(2px)}
+ 75%{transform:translateX(-2px)}
+ 100%{transform:translateX(0)}
+}
+.footer{margin-top:8px;font-size:12px;opacity:.6}
+</style>
+</head>
+
+<body>
+<div class="box">
+ <h2>🔥 MÁY TEST ĐỘ SĨ 🔥</h2>
+ <div class="sub">Nhập tên để bắt đầu test</div>
+
+ <input id="name" placeholder="Nhập tên của bạn">
+
+ <div class="meter">
+  <div class="bar" id="bar"></div>
+ </div>
+
+ <button onclick="test()">BẮT ĐẦU TEST</button>
+ <div id="result"></div>
+ <div class="footer">*Máy nói thật ko đùa😤*</div>
+</div>
+
+<script>
+function test(){
+ const nameInput=document.getElementById("name");
+ const name=nameInput.value.trim();
+ const bar=document.getElementById("bar");
+ const res=document.getElementById("result");
+
+ if(name===""){
+  res.innerHTML="❗ Phải nhập tên mới được test nha 😏";
+  return;
+ }
+
+ bar.style.width="0%";
+ res.innerHTML="Đang phân tích độ sĩ của "+name+"...";
+ document.body.classList.add("shake");
+
+ let p=0;
+ const it=setInterval(()=>{
+  p+=Math.floor(Math.random()*8)+4;
+  bar.style.width=p+"%";
+  if(p>=100){
+   clearInterval(it);
+   document.body.classList.remove("shake");
+
+   const n=name.toLowerCase();
+   let score,text;
+
+   /* ===== CÁC TRƯỜNG HỢP FIX ===== */
+   if(n.includes("hùng")){
+    score=0;
+    text="❌ Không biết sĩ";
+   }
+   else if(n.includes("bảo")){
+    score=100;
+    text="👑 THÁNH SĨ 10C1";
+   }
+   else if(n.includes("nam")){
+    score=69;
+    text="😏 Sĩ vừa đủ dùng";
+   }
+   else if(n.includes("tuấn")){
+    score=88;
+    text="🔥 Sĩ có tiếng trong lớp";
+   }
+   else if(n.includes("long")){
+    score=42;
+    text="🤔 Sĩ nửa mùa";
+   }
+   else if(n.includes("an")){
+    score=15;
+    text="🙂 Sĩ nhẹ như gió";
+   }
+   else if(n.includes("minh")){
+    score=95;
+    text="💀 Sĩ max level – ai cũng biết";
+   }
+   else if(n.includes("đạt")){
+    score=5;
+    text="😂 Sĩ mà tưởng không sĩ";
+   }
+
+   /* ===== RANDOM CHO TÊN KHÁC ===== */
+   else{
+    score=Math.floor(Math.random()*101);
+    if(score<25) text="🙂 Sĩ nhẹ cho vui";
+    else if(score<50) text="😏 Sĩ có kiểm soát";
+    else if(score<75) text="😎 Sĩ có tổ chức";
+    else if(score<90) text="🔥 Sĩ chúa";
+    else if(score<100) text="👑 Sĩ tổ";
+    else text="💀 Sĩ max level";
+   }
+
+   res.innerHTML=`KẾT QUẢ CỦA <b>${name}</b>:<br><b>${score}%</b><br>${text}`;
+  }
+ },80);
+}
+</script>
+</body>
+</html>
